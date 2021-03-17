@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import axios from 'axios'
+import './App.css'
+import ApplicationForm from './ApplicationForm'
 
-function App() {
+const App = (props) => {
+
+  const formSubmission = (data) => {
+    axios.post('http://dct-application-form.herokuapp.com/users/application-form',data)
+      .then(response => {
+        console.log(response.data)
+      })
+      .catch(err => alert(err.message))
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Apply for Job</h1>
+      <ApplicationForm formSubmission={formSubmission}/>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
